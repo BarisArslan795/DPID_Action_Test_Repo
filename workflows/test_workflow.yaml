@@ -1,36 +1,19 @@
-name: Main Branch Testing
-on:
-  push:
-    branches: [main]
+name: GUI Test Review
+on: [push, pull_request]
 
 jobs:
-  test-and-deploy:
+  test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    
     
     steps:
       - uses: actions/checkout@v4
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: GUI Test Review
-        id: test-review
-        uses: DigitalProductInnovationAndDevelopment/GUI Test Code Review@v1
+      - name: Run GUI Test Review
+        uses: DigitalProductInnovationAndDevelopment/GUI Test Code Review@v1.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          enable-pr-comments: 'false'
-          enable-github-pages: 'true'
-          fail-on-test-failure: 'true'

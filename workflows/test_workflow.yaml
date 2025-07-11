@@ -28,7 +28,7 @@ jobs:
 
       - name: GUI Test Review
         id: test-review
-        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1
+        uses: DigitalProductInnovationAndDevelopment/GUI Test Code Review@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           enable-pr-comments: 'false'

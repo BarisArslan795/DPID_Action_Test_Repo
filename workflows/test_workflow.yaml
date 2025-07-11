@@ -1,22 +1,27 @@
-name: GUI Test Review
-on: [push, pull_request]
+name: Main Branch Testing
+on:
+  push:
+    branches: [main]
 
 jobs:
-  test:
+  test-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: npm ci
       
-      - name: Run GUI Test Review
+      - name: GUI Test Review
+        id: test-review
         uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-pr-comments: 'false'
+          enable-github-pages: 'true'
+          fail-on-test-failure: 'true'

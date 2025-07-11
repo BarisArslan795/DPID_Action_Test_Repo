@@ -12,6 +12,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
       
       - name: Run GUI Test Review
         uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1

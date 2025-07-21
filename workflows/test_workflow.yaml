@@ -10,3 +10,4 @@ on:
 jobs:
   reuse-gui-test:
     uses: your-org/your-repo/.github/workflows/playwright.yml@main
+    

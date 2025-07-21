@@ -1,13 +1,10 @@
-# File: .github/workflows/use-reusable-workflow.yml
-name: Run GUI Test Review via Reusable Workflow
+name: Run GUI Test Review
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  reuse-gui-test:
-    uses: your-org/your-repo/.github/workflows/playwright.yml@main
-    
+  call-gui-test:
+    uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests/.github/workflows/playwright.yml@main

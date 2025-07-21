@@ -1,12 +1,25 @@
-name: Run GUI Test Review
-
+name: GUI Test Code Review
 on:
   pull_request:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
-  call-gui-test:
-    uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests/.github/workflows/playwright.yml@main
-
-  
+  gui-test-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for visual comparison
+      
+      - name: GUI-Based Testing Code Review
+        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-visual-comparison: 'true'
+          key-test-file: 'tests/your-main-test.spec.ts'

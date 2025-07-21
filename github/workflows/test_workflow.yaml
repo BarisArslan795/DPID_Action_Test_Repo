@@ -8,5 +8,3 @@ on:
 jobs:
   call-gui-test:
     uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests/.github/workflows/playwright.yml@main
-    
-    

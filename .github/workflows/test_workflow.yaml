@@ -1,10 +1,36 @@
-name: Run GUI Test Review
-
-on:
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+name: Comprehensive GUI Test Analysis
+on: [push, pull_request]
 
 jobs:
-  call-gui-test:
-    uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests/.github/workflows/playwright.yml@main
+  gui-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Advanced GUI Test Review
+        id: gui-review
+        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          test-files: 'tests/**/*.spec.{js,ts}'
+          enable-visual-comparison: 'true'
+          reviewdog-reporter: 'github-pr-review'
+          artifacts-retention-days: '30'
+          fail-on-test-failure: 'false'
+      
+      # Use outputs for further analysis
+      - name: Check for GUI regressions
+        if: steps.gui-review.outputs.gui-regression-detected == 'true'
+        run: |
+          echo "⚠️ GUI test regression detected!"
+          echo "Dashboard: ${{ steps.gui-review.outputs.dashboard-url }}"
+          echo "Quality Score: ${{ steps.gui-review.outputs.code-quality-score }}/100"
+          

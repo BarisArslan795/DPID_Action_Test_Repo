@@ -1,4 +1,5 @@
 name: Comprehensive GUI Test Analysis
+
 on: [push, pull_request]
 
 jobs:
@@ -9,15 +10,19 @@ jobs:
       pull-requests: write
       pages: write
       id-token: write
-    
+
+    environment:
+      name: github-pages
+      url: ${{ steps.gui-review.outputs.dashboard-url }}
+
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Advanced GUI Test Review
         id: gui-review
-        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1.0.5
+        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1.0.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           test-files: 'tests/**/*.spec.{js,ts}'
@@ -25,12 +30,10 @@ jobs:
           reviewdog-reporter: 'github-pr-review'
           artifacts-retention-days: '30'
           fail-on-test-failure: 'false'
-      
-      # Use outputs for further analysis
+
       - name: Check for GUI regressions
         if: steps.gui-review.outputs.gui-regression-detected == 'true'
         run: |
           echo "⚠️ GUI test regression detected!"
           echo "Dashboard: ${{ steps.gui-review.outputs.dashboard-url }}"
           echo "Quality Score: ${{ steps.gui-review.outputs.code-quality-score }}/100"
-          

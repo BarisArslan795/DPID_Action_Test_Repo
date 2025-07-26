@@ -1,6 +1,7 @@
 name: Comprehensive GUI Test Analysis
 on: [push, pull_request]
 
+
 jobs:
   gui-analysis:
     runs-on: ubuntu-latest

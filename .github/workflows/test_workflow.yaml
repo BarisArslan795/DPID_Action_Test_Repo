@@ -1,4 +1,4 @@
-name: Comprehensive GUI Test Analysis
+name: Comprehensive GUI Testing Analysis
 on: [push, pull_request]
 
 jobs:

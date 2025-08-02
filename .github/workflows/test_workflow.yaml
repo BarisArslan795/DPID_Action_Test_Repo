@@ -34,4 +34,3 @@ jobs:
           echo "Dashboard: ${{ steps.gui-review.outputs.dashboard-url }}"
           echo "Quality Score: ${{ steps.gui-review.outputs.code-quality-score }}/100"
         
-        

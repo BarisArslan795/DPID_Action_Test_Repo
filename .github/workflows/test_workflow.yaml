@@ -17,7 +17,7 @@ jobs:
       
       - name: Advanced GUI Test Review
         id: gui-review
-        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1.0.0
+        uses: DigitalProductInnovationAndDevelopment/Code-Reviews-of-GUI-Tests@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           test-files: 'tests/**/*.spec.{js,ts}'
@@ -33,5 +33,4 @@ jobs:
           echo "⚠️ GUI test regression detected!"
           echo "Dashboard: ${{ steps.gui-review.outputs.dashboard-url }}"
           echo "Quality Score: ${{ steps.gui-review.outputs.code-quality-score }}/100"
-          
           
